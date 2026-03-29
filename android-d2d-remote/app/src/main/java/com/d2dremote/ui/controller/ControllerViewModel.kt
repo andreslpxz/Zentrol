@@ -39,12 +39,24 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
     private var pendingSurface: Surface? = null
     private var decoderInitialized = false
 
+    @Volatile
+    private var videoConnected = false
+    @Volatile
+    private var controlConnected = false
+
     fun updateTargetIp(ip: String) {
         _targetIp.value = ip
     }
 
     fun updatePairingCode(code: String) {
         _pairingCode.value = code
+    }
+
+    private fun checkBothConnected() {
+        if (videoConnected && controlConnected) {
+            _connectionState.value = ConnectionState.Connected
+            _isInRemoteView.value = true
+        }
     }
 
     fun connect() {
@@ -56,16 +68,19 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
 
         _connectionState.value = ConnectionState.Connecting
         decoderInitialized = false
+        videoConnected = false
+        controlConnected = false
 
         videoClient = VideoStreamClient().apply {
             onConnected = {
                 viewModelScope.launch {
-                    _connectionState.value = ConnectionState.Connected
-                    _isInRemoteView.value = true
+                    videoConnected = true
+                    checkBothConnected()
                 }
             }
             onDisconnected = {
                 viewModelScope.launch {
+                    videoConnected = false
                     _connectionState.value = ConnectionState.Disconnected
                     _isInRemoteView.value = false
                 }
@@ -78,11 +93,13 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
             }
             onReconnecting = { attempt ->
                 viewModelScope.launch {
+                    videoConnected = false
                     _connectionState.value = ConnectionState.Connecting
                 }
             }
             onError = { msg ->
                 viewModelScope.launch {
+                    videoConnected = false
                     _connectionState.value = ConnectionState.Error(msg)
                     _isInRemoteView.value = false
                 }
@@ -90,8 +107,23 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
         }
 
         controlClient = ControlClient().apply {
+            onConnected = {
+                viewModelScope.launch {
+                    controlConnected = true
+                    checkBothConnected()
+                }
+            }
+            onDisconnected = {
+                viewModelScope.launch {
+                    controlConnected = false
+                    if (_connectionState.value is ConnectionState.Connected) {
+                        _connectionState.value = ConnectionState.Disconnected
+                    }
+                }
+            }
             onReconnecting = { attempt ->
                 viewModelScope.launch {
+                    controlConnected = false
                     if (_connectionState.value is ConnectionState.Connected) {
                         _connectionState.value = ConnectionState.Connecting
                     }
@@ -99,6 +131,7 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
             }
             onError = { msg ->
                 viewModelScope.launch {
+                    controlConnected = false
                     if (_connectionState.value !is ConnectionState.Error) {
                         _connectionState.value = ConnectionState.Error(msg)
                     }
@@ -165,6 +198,8 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
         _screenInfo.value = null
         pendingSurface = null
         decoderInitialized = false
+        videoConnected = false
+        controlConnected = false
     }
 
     fun goBackFromRemoteView() {

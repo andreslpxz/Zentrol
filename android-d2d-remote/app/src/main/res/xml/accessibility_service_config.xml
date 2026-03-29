@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    Accessibility Service Configuration for D2D Remote Touch Injection.
-
-    This service is used by the "Target" device to receive touch events
-    from the "Controller" device and inject them into the screen.
-
-    HOW TO ACTIVATE:
-    1. Go to Settings > Accessibility on the Target device.
-    2. Find "D2D Remote Touch" in the list of services.
-    3. Toggle it ON and confirm the permission dialog.
-    4. Return to the D2D Remote app and start the server.
-
-    The service requires these capabilities:
-    - canPerformGestures: Allows injecting tap, swipe, and drag gestures.
-    - canRetrieveWindowContent: Allows reading window info for coordinate mapping.
--->
 <accessibility-service
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/accessibility_service_description"

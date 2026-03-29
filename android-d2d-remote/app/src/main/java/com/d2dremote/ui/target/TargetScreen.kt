@@ -359,7 +359,8 @@ fun TargetScreen(
                             else -> Primary
                         }
                     ),
-                    enabled = serverState !is ServerState.Starting
+                    enabled = serverState !is ServerState.Starting &&
+                        (serverState is ServerState.Running || isAccessibilityEnabled)
                 ) {
                     Icon(
                         imageVector = when (serverState) {
