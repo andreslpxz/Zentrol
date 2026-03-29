@@ -60,7 +60,21 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun checkAccessibilityStatus() {
-        _isAccessibilityEnabled.value = TouchAccessibilityService.isServiceEnabled
+        _isAccessibilityEnabled.value = TouchAccessibilityService.isServiceEnabled ||
+            isAccessibilityServiceEnabled()
+    }
+
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        return try {
+            val context = getApplication<Application>()
+            val enabledServices = android.provider.Settings.Secure.getString(
+                context.contentResolver,
+                android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+            ) ?: return false
+            enabledServices.contains("com.d2dremote/.service.TouchAccessibilityService")
+        } catch (_: Exception) {
+            false
+        }
     }
 
     fun startServer(resultCode: Int, resultData: Intent) {
