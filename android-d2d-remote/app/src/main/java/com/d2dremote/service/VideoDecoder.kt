@@ -11,6 +11,8 @@ class VideoDecoder(
     companion object {
         private const val TAG = "VideoDecoder"
         private const val MIME_TYPE = "video/avc"
+        private val SPS_PREFIX = byteArrayOf(0, 0, 0, 1, 0x67)
+        private val PPS_PREFIX = byteArrayOf(0, 0, 0, 1, 0x68)
     }
 
     private var decoder: MediaCodec? = null
@@ -35,17 +37,36 @@ class VideoDecoder(
         }
     }
 
+    private fun isCodecConfig(data: ByteArray, size: Int): Boolean {
+        if (size < 5) return false
+        return startsWithPrefix(data, SPS_PREFIX) || startsWithPrefix(data, PPS_PREFIX)
+    }
+
+    private fun startsWithPrefix(data: ByteArray, prefix: ByteArray): Boolean {
+        if (data.size < prefix.size) return false
+        for (i in prefix.indices) {
+            if (data[i] != prefix[i]) return false
+        }
+        return true
+    }
+
     fun decodeFrame(data: ByteArray, size: Int) {
         val codec = decoder ?: return
         if (!isDecoding) return
 
         try {
+            val flags = if (isCodecConfig(data, size)) {
+                MediaCodec.BUFFER_FLAG_CODEC_CONFIG
+            } else {
+                0
+            }
+
             val inputIndex = codec.dequeueInputBuffer(10_000)
             if (inputIndex >= 0) {
                 val inputBuffer = codec.getInputBuffer(inputIndex) ?: return
                 inputBuffer.clear()
                 inputBuffer.put(data, 0, size)
-                codec.queueInputBuffer(inputIndex, 0, size, System.nanoTime() / 1000, 0)
+                codec.queueInputBuffer(inputIndex, 0, size, System.nanoTime() / 1000, flags)
             }
 
             val bufferInfo = MediaCodec.BufferInfo()

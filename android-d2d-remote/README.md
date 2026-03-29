@@ -88,7 +88,7 @@ Or install directly from Android Studio by selecting a connected device and clic
 
 ### Security
 
-Both video and control connections are protected by a **6-digit pairing code**. The Target device generates a random code that must be entered on the Controller device before connections are accepted. This prevents unauthorized devices on the same LAN from connecting.
+Both video and control connections require a **6-digit pairing code** before accepting clients. The Target device generates a random code that must be entered on the Controller device. This provides basic access control on the local network but does **not** encrypt traffic. The pairing code prevents casual unauthorized connections from other devices on the same WiFi network. For sensitive use cases, consider running the app on a private/isolated network.
 
 ### Stopping the Session
 
