@@ -25,11 +25,21 @@ A native Android app that allows one device (Controller) to view and control ano
 
 Copy the `android-d2d-remote` folder to your local machine.
 
-### 2. Open in Android Studio
+### 2. Regenerate the Gradle wrapper (recommended)
 
-Open the `android-d2d-remote` folder as an existing project in Android Studio.
+If you encounter issues with the bundled wrapper, regenerate it by running:
 
-### 3. Build the APK
+```bash
+gradle wrapper --gradle-version 8.9
+```
+
+This requires Gradle to be installed on your system. Alternatively, open the project in Android Studio and it will handle the wrapper automatically.
+
+### 3. Open in Android Studio
+
+Open the `android-d2d-remote` folder as an existing project in Android Studio. Android Studio will sync the project and download all required dependencies.
+
+### 4. Build the APK
 
 From the project root directory:
 
@@ -42,7 +52,7 @@ The APK will be generated at:
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
-### 4. Install on both devices
+### 5. Install on both devices
 
 ```bash
 adb install app/build/outputs/apk/debug/app-debug.apk
