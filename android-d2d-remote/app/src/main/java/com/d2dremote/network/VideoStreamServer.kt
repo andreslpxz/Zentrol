@@ -2,8 +2,6 @@ package com.d2dremote.network
 
 import android.util.Log
 import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.io.OutputStream
 import java.net.ServerSocket
 import java.net.Socket
@@ -109,8 +107,7 @@ class VideoStreamServer {
     private fun authenticateClient(socket: Socket, expectedCode: String): Boolean {
         return try {
             socket.soTimeout = AUTH_TIMEOUT_MS
-            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-            val authLine = reader.readLine() ?: return false
+            val authLine = readLineFromRawStream(socket.getInputStream()) ?: return false
             socket.soTimeout = 0
             val result = authLine.startsWith("PAIR:") && authLine.substringAfter("PAIR:").trim() == expectedCode
             if (result) {
@@ -124,6 +121,16 @@ class VideoStreamServer {
         } catch (e: Exception) {
             Log.w(TAG, "Auth handshake failed: ${e.message}")
             false
+        }
+    }
+
+    private fun readLineFromRawStream(input: java.io.InputStream): String? {
+        val sb = StringBuilder()
+        while (true) {
+            val b = input.read()
+            if (b == -1) return if (sb.isEmpty()) null else sb.toString()
+            if (b == '\n'.code) return sb.toString()
+            if (b != '\r'.code) sb.append(b.toChar())
         }
     }
 

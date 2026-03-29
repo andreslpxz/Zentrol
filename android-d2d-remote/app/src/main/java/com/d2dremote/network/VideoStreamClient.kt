@@ -3,9 +3,7 @@ package com.d2dremote.network
 import android.util.Log
 import com.d2dremote.model.ScreenInfo
 import kotlinx.coroutines.*
-import java.io.BufferedReader
 import java.io.DataInputStream
-import java.io.InputStreamReader
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketException
@@ -140,13 +138,22 @@ class VideoStreamClient {
             socket.getOutputStream().write("PAIR:$pairingCode\n".toByteArray(Charsets.UTF_8))
             socket.getOutputStream().flush()
             socket.soTimeout = AUTH_TIMEOUT_MS
-            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-            val response = reader.readLine() ?: return false
+            val response = readLineFromRawStream(socket.getInputStream())
             socket.soTimeout = 0
-            response.trim() == "AUTH:OK"
+            response?.trim() == "AUTH:OK"
         } catch (e: Exception) {
             Log.w(TAG, "Pairing handshake failed: ${e.message}")
             false
+        }
+    }
+
+    private fun readLineFromRawStream(input: java.io.InputStream): String? {
+        val sb = StringBuilder()
+        while (true) {
+            val b = input.read()
+            if (b == -1) return if (sb.isEmpty()) null else sb.toString()
+            if (b == '\n'.code) return sb.toString()
+            if (b != '\r'.code) sb.append(b.toChar())
         }
     }
 
