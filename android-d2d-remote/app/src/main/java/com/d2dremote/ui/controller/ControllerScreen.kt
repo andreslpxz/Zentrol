@@ -30,6 +30,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.CastConnected
+import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Link
 import androidx.compose.material.icons.rounded.LinkOff
 import androidx.compose.material.icons.rounded.Wifi
@@ -70,6 +71,7 @@ fun ControllerScreen(
 ) {
     val connectionState by viewModel.connectionState.collectAsStateWithLifecycle()
     val targetIp by viewModel.targetIp.collectAsStateWithLifecycle()
+    val pairingCode by viewModel.pairingCode.collectAsStateWithLifecycle()
     val isInRemoteView by viewModel.isInRemoteView.collectAsStateWithLifecycle()
 
     AnimatedContent(
@@ -88,8 +90,10 @@ fun ControllerScreen(
         } else {
             ControllerConnectScreen(
                 targetIp = targetIp,
+                pairingCode = pairingCode,
                 connectionState = connectionState,
                 onIpChanged = { viewModel.updateTargetIp(it) },
+                onPairingCodeChanged = { viewModel.updatePairingCode(it) },
                 onConnect = { viewModel.connect() },
                 onDisconnect = { viewModel.disconnect() },
                 onNavigateBack = onNavigateBack
@@ -102,8 +106,10 @@ fun ControllerScreen(
 @Composable
 private fun ControllerConnectScreen(
     targetIp: String,
+    pairingCode: String,
     connectionState: ConnectionState,
     onIpChanged: (String) -> Unit,
+    onPairingCodeChanged: (String) -> Unit,
     onConnect: () -> Unit,
     onDisconnect: () -> Unit,
     onNavigateBack: () -> Unit
@@ -219,6 +225,70 @@ private fun ControllerConnectScreen(
                 }
             }
 
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(
+                        brush = Brush.linearGradient(
+                            listOf(
+                                Primary.copy(alpha = 0.03f),
+                                Primary.copy(alpha = 0.06f)
+                            )
+                        )
+                    )
+                    .padding(24.dp)
+            ) {
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Key,
+                            contentDescription = null,
+                            tint = Primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Text(
+                            text = "Pairing Code",
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OutlinedTextField(
+                        value = pairingCode,
+                        onValueChange = { if (it.length <= 6) onPairingCodeChanged(it) },
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = {
+                            Text(
+                                "6-digit code",
+                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                            )
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Go
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onGo = { onConnect() }
+                        ),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                            focusedContainerColor = Color.White,
+                            unfocusedContainerColor = Color.White
+                        ),
+                        enabled = connectionState !is ConnectionState.Connecting
+                    )
+                }
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -266,7 +336,7 @@ private fun ControllerConnectScreen(
                         else -> Primary
                     }
                 ),
-                enabled = targetIp.isNotBlank()
+                enabled = targetIp.isNotBlank() && pairingCode.length == 6
             ) {
                 when (connectionState) {
                     is ConnectionState.Connecting -> {

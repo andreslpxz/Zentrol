@@ -29,19 +29,33 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
     private val _isInRemoteView = MutableStateFlow(false)
     val isInRemoteView: StateFlow<Boolean> = _isInRemoteView.asStateFlow()
 
+    private val _pairingCode = MutableStateFlow("")
+    val pairingCode: StateFlow<String> = _pairingCode.asStateFlow()
+
     private var videoClient: VideoStreamClient? = null
     private var controlClient: ControlClient? = null
     private var videoDecoder: VideoDecoder? = null
 
+    private var pendingSurface: Surface? = null
+    private var decoderInitialized = false
+
     fun updateTargetIp(ip: String) {
         _targetIp.value = ip
+    }
+
+    fun updatePairingCode(code: String) {
+        _pairingCode.value = code
     }
 
     fun connect() {
         val ip = _targetIp.value.trim()
         if (ip.isEmpty()) return
 
+        val code = _pairingCode.value.trim()
+        if (code.isEmpty()) return
+
         _connectionState.value = ConnectionState.Connecting
+        decoderInitialized = false
 
         videoClient = VideoStreamClient().apply {
             onConnected = {
@@ -59,6 +73,7 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
             onScreenInfoReceived = { info ->
                 viewModelScope.launch {
                     _screenInfo.value = info
+                    tryInitDecoder()
                 }
             }
             onReconnecting = { attempt ->
@@ -91,12 +106,28 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
             }
         }
 
-        videoClient?.connect(ip, viewModelScope)
-        controlClient?.connect(ip, viewModelScope)
+        videoClient?.connect(ip, code, viewModelScope)
+        controlClient?.connect(ip, code, viewModelScope)
     }
 
-    fun initDecoder(surface: Surface) {
+    fun onSurfaceAvailable(surface: Surface) {
+        pendingSurface = surface
+        tryInitDecoder()
+    }
+
+    fun onSurfaceDestroyed() {
+        pendingSurface = null
+        decoderInitialized = false
+        videoDecoder?.stop()
+        videoDecoder = null
+    }
+
+    private fun tryInitDecoder() {
+        if (decoderInitialized) return
+        val surface = pendingSurface ?: return
         val info = _screenInfo.value ?: return
+
+        decoderInitialized = true
         videoDecoder?.stop()
         videoDecoder = VideoDecoder(surface).apply {
             start(info.width / 2, info.height / 2)
@@ -132,6 +163,8 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
         _connectionState.value = ConnectionState.Idle
         _isInRemoteView.value = false
         _screenInfo.value = null
+        pendingSurface = null
+        decoderInitialized = false
     }
 
     fun goBackFromRemoteView() {

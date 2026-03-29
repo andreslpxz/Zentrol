@@ -13,6 +13,7 @@ class ControlServer {
 
     companion object {
         private const val TAG = "ControlServer"
+        private const val AUTH_TIMEOUT_MS = 5000
     }
 
     private var serverSocket: ServerSocket? = null
@@ -26,7 +27,7 @@ class ControlServer {
     var onTouchEvent: ((TouchEvent) -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun start(scope: CoroutineScope) {
+    fun start(scope: CoroutineScope, pairingCode: String? = null) {
         if (isRunning) return
 
         serverJob = scope.launch(Dispatchers.IO) {
@@ -41,6 +42,15 @@ class ControlServer {
                     try {
                         val socket = serverSocket?.accept() ?: break
                         socket.tcpNoDelay = true
+
+                        if (pairingCode != null) {
+                            if (!authenticateClient(socket, pairingCode)) {
+                                Log.w(TAG, "Client failed pairing authentication, rejecting")
+                                socket.close()
+                                continue
+                            }
+                        }
+
                         clientSocket?.close()
                         clientSocket = socket
 
@@ -79,6 +89,27 @@ class ControlServer {
             } finally {
                 isRunning = false
             }
+        }
+    }
+
+    private fun authenticateClient(socket: Socket, expectedCode: String): Boolean {
+        return try {
+            socket.soTimeout = AUTH_TIMEOUT_MS
+            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+            val authLine = reader.readLine() ?: return false
+            socket.soTimeout = 0
+            val result = authLine.startsWith("PAIR:") && authLine.substringAfter("PAIR:").trim() == expectedCode
+            if (result) {
+                socket.getOutputStream().write("AUTH:OK\n".toByteArray(Charsets.UTF_8))
+                socket.getOutputStream().flush()
+            } else {
+                socket.getOutputStream().write("AUTH:FAIL\n".toByteArray(Charsets.UTF_8))
+                socket.getOutputStream().flush()
+            }
+            result
+        } catch (e: Exception) {
+            Log.w(TAG, "Auth handshake failed: ${e.message}")
+            false
         }
     }
 

@@ -31,6 +31,7 @@ class ScreenCaptureService : Service() {
         private const val ACTION_STOP = "com.d2dremote.STOP_CAPTURE"
         private const val EXTRA_RESULT_CODE = "result_code"
         private const val EXTRA_RESULT_DATA = "result_data"
+        private const val EXTRA_PAIRING_CODE = "pairing_code"
 
         var videoStreamServer: VideoStreamServer? = null
             private set
@@ -41,11 +42,12 @@ class ScreenCaptureService : Service() {
 
         var onServiceStateChanged: ((Boolean) -> Unit)? = null
 
-        fun startCapture(context: Context, resultCode: Int, resultData: Intent) {
+        fun startCapture(context: Context, resultCode: Int, resultData: Intent, pairingCode: String? = null) {
             val intent = Intent(context, ScreenCaptureService::class.java).apply {
                 action = ACTION_START
                 putExtra(EXTRA_RESULT_CODE, resultCode)
                 putExtra(EXTRA_RESULT_DATA, resultData)
+                putExtra(EXTRA_PAIRING_CODE, pairingCode)
             }
             context.startForegroundService(intent)
         }
@@ -77,9 +79,10 @@ class ScreenCaptureService : Service() {
                 val resultCode = intent.getIntExtra(EXTRA_RESULT_CODE, -1)
                 @Suppress("DEPRECATION")
                 val resultData = intent.getParcelableExtra<Intent>(EXTRA_RESULT_DATA)
+                val pairingCode = intent.getStringExtra(EXTRA_PAIRING_CODE)
                 if (resultData != null) {
                     startForeground(NOTIFICATION_ID, createNotification())
-                    startProjection(resultCode, resultData)
+                    startProjection(resultCode, resultData, pairingCode)
                 }
             }
             ACTION_STOP -> {
@@ -91,7 +94,7 @@ class ScreenCaptureService : Service() {
         return START_NOT_STICKY
     }
 
-    private fun startProjection(resultCode: Int, resultData: Intent) {
+    private fun startProjection(resultCode: Int, resultData: Intent, pairingCode: String? = null) {
         val projectionManager = getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         mediaProjection = projectionManager.getMediaProjection(resultCode, resultData)
 
@@ -115,7 +118,7 @@ class ScreenCaptureService : Service() {
 
         val server = VideoStreamServer()
         videoStreamServer = server
-        server.start(serviceScope)
+        server.start(serviceScope, pairingCode)
 
         server.onClientConnected = {
             server.sendScreenInfo(screenWidth, screenHeight, screenDensity)

@@ -2,6 +2,7 @@ package com.d2dremote.ui.target
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.d2dremote.model.ServerState
@@ -15,6 +16,10 @@ import kotlinx.coroutines.launch
 
 class TargetViewModel(application: Application) : AndroidViewModel(application) {
 
+    companion object {
+        private const val TAG = "TargetViewModel"
+    }
+
     private val _localIp = MutableStateFlow(NetworkUtils.getLocalIpAddress())
     val localIp: StateFlow<String> = _localIp.asStateFlow()
 
@@ -26,6 +31,9 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
 
     private val _hasClient = MutableStateFlow(false)
     val hasClient: StateFlow<Boolean> = _hasClient.asStateFlow()
+
+    private val _pairingCode = MutableStateFlow(generatePairingCode())
+    val pairingCode: StateFlow<String> = _pairingCode.asStateFlow()
 
     init {
         checkAccessibilityStatus()
@@ -47,6 +55,10 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
         _localIp.value = NetworkUtils.getLocalIpAddress()
     }
 
+    fun regeneratePairingCode() {
+        _pairingCode.value = generatePairingCode()
+    }
+
     fun checkAccessibilityStatus() {
         _isAccessibilityEnabled.value = TouchAccessibilityService.isServiceEnabled
     }
@@ -55,15 +67,24 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
         val context = getApplication<Application>()
         _serverState.value = ServerState.Starting
 
-        ScreenCaptureService.startCapture(context, resultCode, resultData)
+        val code = _pairingCode.value
+        ScreenCaptureService.startCapture(context, resultCode, resultData, code)
 
-        TouchAccessibilityService.instance?.startControlServer()
+        val serviceInstance = TouchAccessibilityService.instance
+        if (serviceInstance != null) {
+            serviceInstance.startControlServer(code)
+        } else {
+            Log.w(TAG, "AccessibilityService not bound yet, queuing control server start")
+            TouchAccessibilityService.pendingControlServerStart = true
+            TouchAccessibilityService.pendingPairingCode = code
+        }
     }
 
     fun stopServer() {
         val context = getApplication<Application>()
         ScreenCaptureService.stopCapture(context)
         TouchAccessibilityService.instance?.stopControlServer()
+        TouchAccessibilityService.pendingControlServerStart = false
         _serverState.value = ServerState.Stopped
         _hasClient.value = false
     }
@@ -72,5 +93,10 @@ class TargetViewModel(application: Application) : AndroidViewModel(application) 
         super.onCleared()
         ScreenCaptureService.onServiceStateChanged = null
         TouchAccessibilityService.onServiceStateChanged = null
+    }
+
+    private fun generatePairingCode(): String {
+        val chars = "0123456789"
+        return (1..6).map { chars.random() }.joinToString("")
     }
 }

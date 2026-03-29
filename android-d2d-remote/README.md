@@ -73,7 +73,7 @@ Or install directly from Android Studio by selecting a connected device and clic
    - Toggle the service **ON**
    - Confirm the permission dialog
    - Return to the D2D Remote app
-3. **Note the IP address** displayed on the Target screen
+3. **Note the IP address** and **Pairing Code** displayed on the Target screen
 4. Tap **"Start Server"** — the app will request screen capture permission
 5. Grant the screen capture permission
 
@@ -82,8 +82,13 @@ Or install directly from Android Studio by selecting a connected device and clic
 1. **Install the app** on the Controller device
 2. Open the app and tap **"Be Controller"**
 3. **Enter the Target's IP address** (shown on the Target device)
-4. Tap **"Connect"**
-5. Once connected, you'll see the Target's screen and can interact with it by touching the video area
+4. **Enter the 6-digit Pairing Code** (shown on the Target device)
+5. Tap **"Connect"**
+6. Once connected, you'll see the Target's screen and can interact with it by touching the video area
+
+### Security
+
+Both video and control connections are protected by a **6-digit pairing code**. The Target device generates a random code that must be entered on the Controller device before connections are accepted. This prevents unauthorized devices on the same LAN from connecting.
 
 ### Stopping the Session
 

@@ -22,6 +22,12 @@ class TouchAccessibilityService : AccessibilityService() {
         var isServiceEnabled = false
             private set
 
+        @Volatile
+        var pendingControlServerStart = false
+
+        @Volatile
+        var pendingPairingCode: String? = null
+
         var onServiceStateChanged: ((Boolean) -> Unit)? = null
     }
 
@@ -36,6 +42,12 @@ class TouchAccessibilityService : AccessibilityService() {
         isServiceEnabled = true
         onServiceStateChanged?.invoke(true)
         Log.i(TAG, "Accessibility service connected")
+
+        if (pendingControlServerStart) {
+            pendingControlServerStart = false
+            startControlServer(pendingPairingCode)
+            pendingPairingCode = null
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
@@ -44,12 +56,12 @@ class TouchAccessibilityService : AccessibilityService() {
         Log.w(TAG, "Accessibility service interrupted")
     }
 
-    fun startControlServer() {
+    fun startControlServer(pairingCode: String? = null) {
         controlServer?.stop()
         controlServer = ControlServer().apply {
             onTouchEvent = { event -> handleTouchEvent(event) }
             onError = { msg -> Log.e(TAG, "Control server error: $msg") }
-            start(serviceScope)
+            start(serviceScope, pairingCode)
         }
         Log.i(TAG, "Control server started from accessibility service")
     }

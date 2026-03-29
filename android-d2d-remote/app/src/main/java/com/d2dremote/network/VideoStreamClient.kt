@@ -3,7 +3,9 @@ package com.d2dremote.network
 import android.util.Log
 import com.d2dremote.model.ScreenInfo
 import kotlinx.coroutines.*
+import java.io.BufferedReader
 import java.io.DataInputStream
+import java.io.InputStreamReader
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketException
@@ -15,6 +17,7 @@ class VideoStreamClient {
     companion object {
         private const val TAG = "VideoStreamClient"
         private const val CONNECT_TIMEOUT_MS = 5000
+        private const val AUTH_TIMEOUT_MS = 5000
         private const val READ_TIMEOUT_MS = 10000
         private const val MAX_FRAME_SIZE = 2 * 1024 * 1024
         private const val MAX_RECONNECT_ATTEMPTS = 5
@@ -40,7 +43,7 @@ class VideoStreamClient {
     var onReconnecting: ((Int) -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun connect(host: String, scope: CoroutineScope) {
+    fun connect(host: String, pairingCode: String, scope: CoroutineScope) {
         if (isConnected) return
         targetHost = host
         shouldReconnect = true
@@ -53,9 +56,17 @@ class VideoStreamClient {
                     val sock = Socket()
                     sock.tcpNoDelay = true
                     sock.receiveBufferSize = 1024 * 1024
-                    sock.soTimeout = READ_TIMEOUT_MS
                     sock.connect(InetSocketAddress(host, NetworkUtils.VIDEO_PORT), CONNECT_TIMEOUT_MS)
 
+                    if (!performPairingHandshake(sock, pairingCode)) {
+                        sock.close()
+                        withContext(Dispatchers.Main) {
+                            onError?.invoke("Pairing code rejected by target device")
+                        }
+                        break
+                    }
+
+                    sock.soTimeout = READ_TIMEOUT_MS
                     socket = sock
                     isConnected = true
                     attempt = 0
@@ -121,6 +132,21 @@ class VideoStreamClient {
 
             isConnected = false
             withContext(Dispatchers.Main) { onDisconnected?.invoke() }
+        }
+    }
+
+    private fun performPairingHandshake(socket: Socket, pairingCode: String): Boolean {
+        return try {
+            socket.getOutputStream().write("PAIR:$pairingCode\n".toByteArray(Charsets.UTF_8))
+            socket.getOutputStream().flush()
+            socket.soTimeout = AUTH_TIMEOUT_MS
+            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+            val response = reader.readLine() ?: return false
+            socket.soTimeout = 0
+            response.trim() == "AUTH:OK"
+        } catch (e: Exception) {
+            Log.w(TAG, "Pairing handshake failed: ${e.message}")
+            false
         }
     }
 

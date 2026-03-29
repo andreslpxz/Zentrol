@@ -146,7 +146,7 @@ fun RemoteViewScreen(
                         SurfaceView(ctx).apply {
                             holder.addCallback(object : SurfaceHolder.Callback {
                                 override fun surfaceCreated(holder: SurfaceHolder) {
-                                    viewModel.initDecoder(holder.surface)
+                                    viewModel.onSurfaceAvailable(holder.surface)
                                 }
 
                                 override fun surfaceChanged(
@@ -156,7 +156,9 @@ fun RemoteViewScreen(
                                     height: Int
                                 ) {}
 
-                                override fun surfaceDestroyed(holder: SurfaceHolder) {}
+                                override fun surfaceDestroyed(holder: SurfaceHolder) {
+                                    viewModel.onSurfaceDestroyed()
+                                }
                             })
                         }
                     },

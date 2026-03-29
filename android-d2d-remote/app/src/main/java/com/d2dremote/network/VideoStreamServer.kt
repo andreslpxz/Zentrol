@@ -2,6 +2,8 @@ package com.d2dremote.network
 
 import android.util.Log
 import kotlinx.coroutines.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.io.OutputStream
 import java.net.ServerSocket
 import java.net.Socket
@@ -12,12 +14,14 @@ class VideoStreamServer {
 
     companion object {
         private const val TAG = "VideoStreamServer"
+        private const val AUTH_TIMEOUT_MS = 5000
     }
 
     private var serverSocket: ServerSocket? = null
     private var clientSocket: Socket? = null
     private var outputStream: OutputStream? = null
     private var serverJob: Job? = null
+    private var pairingCode: String? = null
 
     @Volatile
     var isRunning = false
@@ -31,8 +35,9 @@ class VideoStreamServer {
     var onClientDisconnected: (() -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun start(scope: CoroutineScope) {
+    fun start(scope: CoroutineScope, pairingCode: String? = null) {
         if (isRunning) return
+        this.pairingCode = pairingCode
 
         serverJob = scope.launch(Dispatchers.IO) {
             try {
@@ -49,6 +54,15 @@ class VideoStreamServer {
                         val socket = serverSocket?.accept() ?: break
                         socket.tcpNoDelay = true
                         socket.setSendBufferSize(1024 * 1024)
+
+                        val code = this@VideoStreamServer.pairingCode
+                        if (code != null) {
+                            if (!authenticateClient(socket, code)) {
+                                Log.w(TAG, "Client failed video pairing authentication, rejecting")
+                                socket.close()
+                                continue
+                            }
+                        }
 
                         clientSocket?.close()
                         clientSocket = socket
@@ -89,6 +103,27 @@ class VideoStreamServer {
             } finally {
                 isRunning = false
             }
+        }
+    }
+
+    private fun authenticateClient(socket: Socket, expectedCode: String): Boolean {
+        return try {
+            socket.soTimeout = AUTH_TIMEOUT_MS
+            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+            val authLine = reader.readLine() ?: return false
+            socket.soTimeout = 0
+            val result = authLine.startsWith("PAIR:") && authLine.substringAfter("PAIR:").trim() == expectedCode
+            if (result) {
+                socket.getOutputStream().write("AUTH:OK\n".toByteArray(Charsets.UTF_8))
+                socket.getOutputStream().flush()
+            } else {
+                socket.getOutputStream().write("AUTH:FAIL\n".toByteArray(Charsets.UTF_8))
+                socket.getOutputStream().flush()
+            }
+            result
+        } catch (e: Exception) {
+            Log.w(TAG, "Auth handshake failed: ${e.message}")
+            false
         }
     }
 

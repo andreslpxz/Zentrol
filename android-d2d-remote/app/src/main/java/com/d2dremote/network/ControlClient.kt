@@ -3,6 +3,8 @@ package com.d2dremote.network
 import android.util.Log
 import com.d2dremote.model.TouchEvent
 import kotlinx.coroutines.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -15,6 +17,7 @@ class ControlClient {
     companion object {
         private const val TAG = "ControlClient"
         private const val CONNECT_TIMEOUT_MS = 5000
+        private const val AUTH_TIMEOUT_MS = 5000
         private const val MAX_RECONNECT_ATTEMPTS = 5
         private const val INITIAL_BACKOFF_MS = 1000L
         private const val MAX_BACKOFF_MS = 15000L
@@ -37,7 +40,7 @@ class ControlClient {
     var onReconnecting: ((Int) -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
-    fun connect(host: String, scope: CoroutineScope) {
+    fun connect(host: String, pairingCode: String, scope: CoroutineScope) {
         if (isConnected) return
         shouldReconnect = true
 
@@ -49,6 +52,14 @@ class ControlClient {
                     val sock = Socket()
                     sock.tcpNoDelay = true
                     sock.connect(InetSocketAddress(host, NetworkUtils.CONTROL_PORT), CONNECT_TIMEOUT_MS)
+
+                    if (!performPairingHandshake(sock, pairingCode)) {
+                        sock.close()
+                        withContext(Dispatchers.Main) {
+                            onError?.invoke("Pairing code rejected by target device")
+                        }
+                        break
+                    }
 
                     socket = sock
                     writer = PrintWriter(sock.getOutputStream(), true)
@@ -98,6 +109,21 @@ class ControlClient {
 
             isConnected = false
             withContext(Dispatchers.Main) { onDisconnected?.invoke() }
+        }
+    }
+
+    private fun performPairingHandshake(socket: Socket, pairingCode: String): Boolean {
+        return try {
+            socket.getOutputStream().write("PAIR:$pairingCode\n".toByteArray(Charsets.UTF_8))
+            socket.getOutputStream().flush()
+            socket.soTimeout = AUTH_TIMEOUT_MS
+            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+            val response = reader.readLine() ?: return false
+            socket.soTimeout = 0
+            response.trim() == "AUTH:OK"
+        } catch (e: Exception) {
+            Log.w(TAG, "Pairing handshake failed: ${e.message}")
+            false
         }
     }
 
