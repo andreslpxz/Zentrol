@@ -1,0 +1,42 @@
+Rol: Eres un Ingeniero de Software Principal de Android, experto en Kotlin, Jetpack Compose, desarrollo de sistemas de red de baja latencia y APIs de Accesibilidad de Android.
+
+Objetivo: Construir un proyecto de Android (con Gradle listo para compilar localmente) que actúe como una herramienta de Control Remoto de Dispositivo a Dispositivo (D2D). La aplicación debe permitir que un dispositivo (el "Controlador") vea la pantalla de otro dispositivo (el "Objetivo") y envíe eventos táctiles para controlarlo. Ambos dispositivos deben estar en la misma red local.
+
+Arquitectura Técnia Requerida:
+El proyecto debe implementar dos módulos lógicos dentro de la misma app (seleccionables al inicio):
+
+1. Módulo del Dispositivo Objetivo (Servidor):
+
+Captura de Pantalla: Debe usar MediaProjectionManager para iniciar un Foreground Service que capture la pantalla del dispositivo.
+
+Codificación y Transmisión: Codificar la captura de pantalla usando MediaCodec (formato liviano como VP8/H.264) y transmitir los frames de video crudos a través de un TCP/UDP Socket a una dirección IP específica. El rendimiento y la baja latencia son críticos.
+
+Recepción de Eventos Táctiles: Escuchar en otro socket TCP mensajes de control entrantes.
+
+Inyección de Toques: Al recibir un mensaje táctil, usar un AccessibilityService (Servicio de Accesibilidad) para inyectar gestos (dispatchGesture) en la pantalla. Este servicio debe estar declarado en el Manifest.
+
+2. Módulo del Dispositivo Controlador (Cliente):
+
+Recepción y Decodificación de Video: Conectarse al socket de video del Servidor, recibir los frames y usar un decodificador (SurfaceView o Jetpack Compose Canvas) para mostrar el video en tiempo real.
+
+Captura de Toques: Usar modificadores de PointerInput en Jetpack Compose sobre el área de video para capturar las coordenadas (X, Y) y el tipo de evento (Down, Move, Up).
+
+Escalado y Envío: Escalar las coordenadas capturadas a la resolución nativa del dispositivo objetivo y enviar esta información formateada (ej: JSON o binario) a través de un socket de control al Servidor.
+
+Interfaz de Usuario (Jetpack Compose):
+
+Pantalla de Inicio: Una UI limpia para elegir el modo ("Ser Controlador" o "Ser Controlado").
+
+Modo Objetivo: Mostrar la IP local, el estado de los permisos de Accesibilidad/Captura y un botón de "Iniciar Servidor".
+
+Modo Controlador: Un campo de texto para ingresar la IP del Objetivo, botón de "Conectar", y una pantalla de "Vista Remota" donde se muestra el video y se capturan los toques.
+
+Entregables:
+
+Estructura completa del proyecto Android (con build.gradle.kts configurado correctamente con Compose, dependencias de red y codecs).
+
+Clases Kotlin implementando la lógica de Sockets, codificación/decodificación y servicios de fondo.
+
+Un AndroidManifest.xml completo con todos los permisos necesarios: INTERNET, ACCESS_NETWORK_STATE, FOREGROUND_SERVICE, MEDIA_CONTENT_CONTROL y la declaración del AccessibilityService.
+
+Instrucciones en un archivo README sobre cómo compilar con ./gradlew assembleDebug y cómo activar el Servicio de Accesibilidad en el dispositivo objetivo.
