@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">D2D Remote</string>
+    <string name="accessibility_service_description">Allows the D2D Remote app to inject touch events received from a Controller device on the local network. Enable this service on the Target device before starting the remote control server.</string>
+    <string name="home_title">D2D Remote</string>
+    <string name="home_subtitle">Device-to-Device Remote Control</string>
+    <string name="be_controller">Be Controller</string>
+    <string name="be_target">Be Target</string>
+    <string name="controller_description">View and control another device\'s screen</string>
+    <string name="target_description">Share your screen and allow remote control</string>
+    <string name="target_title">Target Mode</string>
+    <string name="controller_title">Controller Mode</string>
+    <string name="your_ip">Your IP Address</string>
+    <string name="start_server">Start Server</string>
+    <string name="stop_server">Stop Server</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="enter_target_ip">Enter Target IP</string>
+    <string name="accessibility_enabled">Accessibility Service: Enabled</string>
+    <string name="accessibility_disabled">Accessibility Service: Disabled</string>
+    <string name="enable_accessibility">Enable Accessibility</string>
+    <string name="server_running">Server is running</string>
+    <string name="server_stopped">Server is stopped</string>
+    <string name="connecting">Connecting…</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connection_error">Connection error</string>
+    <string name="notification_channel_name">Screen Capture</string>
+    <string name="notification_channel_description">Shows when screen is being shared</string>
+    <string name="capture_notification_title">D2D Remote</string>
+    <string name="capture_notification_text">Screen is being shared</string>
+</resources>
