@@ -8,7 +8,7 @@ import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketException
 import java.net.SocketTimeoutException
-import java.nio.ByteBuffer
+import kotlin.math.min
 
 class VideoStreamClient {
 
@@ -17,95 +17,120 @@ class VideoStreamClient {
         private const val CONNECT_TIMEOUT_MS = 5000
         private const val READ_TIMEOUT_MS = 10000
         private const val MAX_FRAME_SIZE = 2 * 1024 * 1024
+        private const val MAX_RECONNECT_ATTEMPTS = 5
+        private const val INITIAL_BACKOFF_MS = 1000L
+        private const val MAX_BACKOFF_MS = 15000L
     }
 
     private var socket: Socket? = null
     private var clientJob: Job? = null
+    private var targetHost: String? = null
 
     @Volatile
     var isConnected = false
         private set
 
+    @Volatile
+    private var shouldReconnect = true
+
     var onFrameReceived: ((ByteArray, Int) -> Unit)? = null
     var onScreenInfoReceived: ((ScreenInfo) -> Unit)? = null
     var onConnected: (() -> Unit)? = null
     var onDisconnected: (() -> Unit)? = null
+    var onReconnecting: ((Int) -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
     fun connect(host: String, scope: CoroutineScope) {
         if (isConnected) return
+        targetHost = host
+        shouldReconnect = true
 
         clientJob = scope.launch(Dispatchers.IO) {
-            try {
-                val sock = Socket()
-                sock.tcpNoDelay = true
-                sock.receiveBufferSize = 1024 * 1024
-                sock.soTimeout = READ_TIMEOUT_MS
-                sock.connect(InetSocketAddress(host, NetworkUtils.VIDEO_PORT), CONNECT_TIMEOUT_MS)
+            var attempt = 0
 
-                socket = sock
-                isConnected = true
+            while (isActive && shouldReconnect) {
+                try {
+                    val sock = Socket()
+                    sock.tcpNoDelay = true
+                    sock.receiveBufferSize = 1024 * 1024
+                    sock.soTimeout = READ_TIMEOUT_MS
+                    sock.connect(InetSocketAddress(host, NetworkUtils.VIDEO_PORT), CONNECT_TIMEOUT_MS)
 
-                Log.i(TAG, "Connected to $host:${NetworkUtils.VIDEO_PORT}")
-                withContext(Dispatchers.Main) { onConnected?.invoke() }
+                    socket = sock
+                    isConnected = true
+                    attempt = 0
 
-                val input = DataInputStream(sock.getInputStream())
-                val frameBuffer = ByteArray(MAX_FRAME_SIZE)
+                    Log.i(TAG, "Connected to $host:${NetworkUtils.VIDEO_PORT}")
+                    withContext(Dispatchers.Main) { onConnected?.invoke() }
 
-                while (isActive && isConnected && !sock.isClosed) {
-                    try {
-                        val sizeHeader = input.readInt()
+                    val input = DataInputStream(sock.getInputStream())
+                    val frameBuffer = ByteArray(MAX_FRAME_SIZE)
 
-                        if (sizeHeader < 0) {
-                            val infoSize = -sizeHeader
-                            if (infoSize > 1024) continue
-                            val infoBytes = ByteArray(infoSize)
-                            input.readFully(infoBytes)
-                            val infoStr = String(infoBytes, Charsets.UTF_8)
-                            val screenInfo = ScreenInfo.fromHeader("$infoStr")
-                            if (screenInfo != null) {
-                                withContext(Dispatchers.Main) {
-                                    onScreenInfoReceived?.invoke(screenInfo)
+                    while (isActive && isConnected && !sock.isClosed && shouldReconnect) {
+                        try {
+                            val sizeHeader = input.readInt()
+
+                            if (sizeHeader < 0) {
+                                val infoSize = -sizeHeader
+                                if (infoSize > 1024) continue
+                                val infoBytes = ByteArray(infoSize)
+                                input.readFully(infoBytes)
+                                val infoStr = String(infoBytes, Charsets.UTF_8)
+                                val screenInfo = ScreenInfo.fromHeader(infoStr)
+                                if (screenInfo != null) {
+                                    withContext(Dispatchers.Main) {
+                                        onScreenInfoReceived?.invoke(screenInfo)
+                                    }
                                 }
+                                continue
                             }
+
+                            if (sizeHeader <= 0 || sizeHeader > MAX_FRAME_SIZE) {
+                                Log.w(TAG, "Invalid frame size: $sizeHeader")
+                                continue
+                            }
+
+                            input.readFully(frameBuffer, 0, sizeHeader)
+                            onFrameReceived?.invoke(frameBuffer, sizeHeader)
+                        } catch (e: SocketTimeoutException) {
                             continue
                         }
+                    }
+                } catch (e: Exception) {
+                    isConnected = false
+                    try { socket?.close() } catch (_: Exception) {}
+                    socket = null
 
-                        if (sizeHeader <= 0 || sizeHeader > MAX_FRAME_SIZE) {
-                            Log.w(TAG, "Invalid frame size: $sizeHeader")
-                            continue
+                    if (!shouldReconnect || !isActive) break
+
+                    attempt++
+                    if (attempt > MAX_RECONNECT_ATTEMPTS) {
+                        Log.e(TAG, "Max reconnect attempts reached")
+                        withContext(Dispatchers.Main) {
+                            onError?.invoke("Connection failed after $MAX_RECONNECT_ATTEMPTS attempts")
                         }
+                        break
+                    }
 
-                        input.readFully(frameBuffer, 0, sizeHeader)
-                        onFrameReceived?.invoke(frameBuffer, sizeHeader)
-                    } catch (e: SocketTimeoutException) {
-                        continue
-                    }
+                    val backoff = min(INITIAL_BACKOFF_MS * (1L shl (attempt - 1)), MAX_BACKOFF_MS)
+                    Log.w(TAG, "Connection lost, reconnecting in ${backoff}ms (attempt $attempt)")
+                    withContext(Dispatchers.Main) { onReconnecting?.invoke(attempt) }
+                    delay(backoff)
                 }
-            } catch (e: SocketException) {
-                if (isConnected) {
-                    Log.w(TAG, "Connection lost: ${e.message}")
-                    withContext(Dispatchers.Main) {
-                        onError?.invoke("Connection lost: ${e.message}")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Client error", e)
-                withContext(Dispatchers.Main) {
-                    onError?.invoke("Connection error: ${e.message}")
-                }
-            } finally {
-                isConnected = false
-                withContext(Dispatchers.Main) { onDisconnected?.invoke() }
             }
+
+            isConnected = false
+            withContext(Dispatchers.Main) { onDisconnected?.invoke() }
         }
     }
 
     fun disconnect() {
+        shouldReconnect = false
         isConnected = false
         clientJob?.cancel()
         try { socket?.close() } catch (_: Exception) {}
         socket = null
+        targetHost = null
         Log.i(TAG, "Disconnected")
     }
 }

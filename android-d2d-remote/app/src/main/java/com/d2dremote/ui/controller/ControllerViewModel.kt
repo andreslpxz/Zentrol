@@ -61,14 +61,27 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
                     _screenInfo.value = info
                 }
             }
+            onReconnecting = { attempt ->
+                viewModelScope.launch {
+                    _connectionState.value = ConnectionState.Connecting
+                }
+            }
             onError = { msg ->
                 viewModelScope.launch {
                     _connectionState.value = ConnectionState.Error(msg)
+                    _isInRemoteView.value = false
                 }
             }
         }
 
         controlClient = ControlClient().apply {
+            onReconnecting = { attempt ->
+                viewModelScope.launch {
+                    if (_connectionState.value is ConnectionState.Connected) {
+                        _connectionState.value = ConnectionState.Connecting
+                    }
+                }
+            }
             onError = { msg ->
                 viewModelScope.launch {
                     if (_connectionState.value !is ConnectionState.Error) {

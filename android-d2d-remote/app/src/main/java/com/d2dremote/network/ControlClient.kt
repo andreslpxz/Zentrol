@@ -8,12 +8,16 @@ import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketException
 import java.util.concurrent.ConcurrentLinkedQueue
+import kotlin.math.min
 
 class ControlClient {
 
     companion object {
         private const val TAG = "ControlClient"
         private const val CONNECT_TIMEOUT_MS = 5000
+        private const val MAX_RECONNECT_ATTEMPTS = 5
+        private const val INITIAL_BACKOFF_MS = 1000L
+        private const val MAX_BACKOFF_MS = 15000L
     }
 
     private var socket: Socket? = null
@@ -25,55 +29,75 @@ class ControlClient {
     var isConnected = false
         private set
 
+    @Volatile
+    private var shouldReconnect = true
+
     var onConnected: (() -> Unit)? = null
     var onDisconnected: (() -> Unit)? = null
+    var onReconnecting: ((Int) -> Unit)? = null
     var onError: ((String) -> Unit)? = null
 
     fun connect(host: String, scope: CoroutineScope) {
         if (isConnected) return
+        shouldReconnect = true
 
         clientJob = scope.launch(Dispatchers.IO) {
-            try {
-                val sock = Socket()
-                sock.tcpNoDelay = true
-                sock.connect(InetSocketAddress(host, NetworkUtils.CONTROL_PORT), CONNECT_TIMEOUT_MS)
+            var attempt = 0
 
-                socket = sock
-                writer = PrintWriter(sock.getOutputStream(), true)
-                isConnected = true
+            while (isActive && shouldReconnect) {
+                try {
+                    val sock = Socket()
+                    sock.tcpNoDelay = true
+                    sock.connect(InetSocketAddress(host, NetworkUtils.CONTROL_PORT), CONNECT_TIMEOUT_MS)
 
-                Log.i(TAG, "Control connected to $host:${NetworkUtils.CONTROL_PORT}")
-                withContext(Dispatchers.Main) { onConnected?.invoke() }
+                    socket = sock
+                    writer = PrintWriter(sock.getOutputStream(), true)
+                    isConnected = true
+                    attempt = 0
 
-                while (isActive && isConnected && !sock.isClosed) {
-                    val event = eventQueue.poll()
-                    if (event != null) {
-                        try {
-                            writer?.println(event.toJson())
-                        } catch (e: SocketException) {
-                            Log.w(TAG, "Send failed: ${e.message}")
-                            break
+                    Log.i(TAG, "Control connected to $host:${NetworkUtils.CONTROL_PORT}")
+                    withContext(Dispatchers.Main) { onConnected?.invoke() }
+
+                    while (isActive && isConnected && !sock.isClosed && shouldReconnect) {
+                        val event = eventQueue.poll()
+                        if (event != null) {
+                            try {
+                                writer?.println(event.toJson())
+                            } catch (e: SocketException) {
+                                Log.w(TAG, "Send failed: ${e.message}")
+                                break
+                            }
+                        } else {
+                            delay(5)
                         }
-                    } else {
-                        delay(5)
                     }
-                }
-            } catch (e: SocketException) {
-                if (isConnected) {
-                    Log.w(TAG, "Control connection lost: ${e.message}")
-                    withContext(Dispatchers.Main) {
-                        onError?.invoke("Control lost: ${e.message}")
+                } catch (e: Exception) {
+                    isConnected = false
+                    try { writer?.close() } catch (_: Exception) {}
+                    try { socket?.close() } catch (_: Exception) {}
+                    writer = null
+                    socket = null
+
+                    if (!shouldReconnect || !isActive) break
+
+                    attempt++
+                    if (attempt > MAX_RECONNECT_ATTEMPTS) {
+                        Log.e(TAG, "Max reconnect attempts reached for control")
+                        withContext(Dispatchers.Main) {
+                            onError?.invoke("Control connection failed after $MAX_RECONNECT_ATTEMPTS attempts")
+                        }
+                        break
                     }
+
+                    val backoff = min(INITIAL_BACKOFF_MS * (1L shl (attempt - 1)), MAX_BACKOFF_MS)
+                    Log.w(TAG, "Control reconnecting in ${backoff}ms (attempt $attempt)")
+                    withContext(Dispatchers.Main) { onReconnecting?.invoke(attempt) }
+                    delay(backoff)
                 }
-            } catch (e: Exception) {
-                Log.e(TAG, "Control client error", e)
-                withContext(Dispatchers.Main) {
-                    onError?.invoke("Control error: ${e.message}")
-                }
-            } finally {
-                isConnected = false
-                withContext(Dispatchers.Main) { onDisconnected?.invoke() }
             }
+
+            isConnected = false
+            withContext(Dispatchers.Main) { onDisconnected?.invoke() }
         }
     }
 
@@ -83,6 +107,7 @@ class ControlClient {
     }
 
     fun disconnect() {
+        shouldReconnect = false
         isConnected = false
         clientJob?.cancel()
         eventQueue.clear()

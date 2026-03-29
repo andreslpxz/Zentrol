@@ -1,9 +1,9 @@
 package com.d2dremote.ui.controller
 
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,21 +32,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.d2dremote.model.ScreenInfo
 import com.d2dremote.model.TouchEvent
 import com.d2dremote.ui.theme.Primary
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun RemoteViewScreen(
     viewModel: ControllerViewModel,
@@ -111,52 +110,34 @@ fun RemoteViewScreen(
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color.DarkGray)
                     .onSizeChanged { viewSize = it }
-                    .pointerInput(Unit) {
-                        detectDragGestures(
-                            onDragStart = { offset ->
+                    .pointerInteropFilter { motionEvent ->
+                        val w = viewSize.width.toFloat()
+                        val h = viewSize.height.toFloat()
+                        if (w <= 0f || h <= 0f) return@pointerInteropFilter false
+
+                        when (motionEvent.actionMasked) {
+                            MotionEvent.ACTION_DOWN -> {
                                 viewModel.sendTouchEvent(
                                     TouchEvent.ACTION_DOWN,
-                                    offset.x, offset.y,
-                                    viewSize.width.toFloat(),
-                                    viewSize.height.toFloat()
+                                    motionEvent.x, motionEvent.y, w, h
                                 )
-                            },
-                            onDrag = { change, _ ->
-                                change.consume()
+                                true
+                            }
+                            MotionEvent.ACTION_MOVE -> {
                                 viewModel.sendTouchEvent(
                                     TouchEvent.ACTION_MOVE,
-                                    change.position.x, change.position.y,
-                                    viewSize.width.toFloat(),
-                                    viewSize.height.toFloat()
+                                    motionEvent.x, motionEvent.y, w, h
                                 )
-                            },
-                            onDragEnd = {
-                            },
-                            onDragCancel = {
+                                true
                             }
-                        )
-                    }
-                    .pointerInput(Unit) {
-                        awaitPointerEventScope {
-                            while (true) {
-                                val event = awaitPointerEvent()
-                                val change = event.changes.firstOrNull() ?: continue
-                                if (change.pressed && !change.previousPressed) {
-                                    viewModel.sendTouchEvent(
-                                        TouchEvent.ACTION_DOWN,
-                                        change.position.x, change.position.y,
-                                        viewSize.width.toFloat(),
-                                        viewSize.height.toFloat()
-                                    )
-                                } else if (!change.pressed && change.previousPressed) {
-                                    viewModel.sendTouchEvent(
-                                        TouchEvent.ACTION_UP,
-                                        change.position.x, change.position.y,
-                                        viewSize.width.toFloat(),
-                                        viewSize.height.toFloat()
-                                    )
-                                }
+                            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                                viewModel.sendTouchEvent(
+                                    TouchEvent.ACTION_UP,
+                                    motionEvent.x, motionEvent.y, w, h
+                                )
+                                true
                             }
+                            else -> false
                         }
                     }
             ) {
