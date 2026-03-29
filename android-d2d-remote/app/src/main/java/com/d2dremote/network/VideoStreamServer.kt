@@ -151,11 +151,13 @@ class VideoStreamServer {
         }
     }
 
-    fun sendScreenInfo(width: Int, height: Int, density: Int) {
+    fun sendScreenInfo(width: Int, height: Int, density: Int, encodedWidth: Int = 0, encodedHeight: Int = 0) {
         if (!hasClient) return
         try {
             val stream = outputStream ?: return
-            val info = "SCRN:${width}x${height}:${density}\n".toByteArray(Charsets.UTF_8)
+            val ew = if (encodedWidth > 0) encodedWidth else width / 2
+            val eh = if (encodedHeight > 0) encodedHeight else height / 2
+            val info = "SCRN:${width}x${height}:${density}:${ew}x${eh}\n".toByteArray(Charsets.UTF_8)
             val header = ByteBuffer.allocate(4).putInt(-info.size).array()
             stream.write(header)
             stream.write(info)

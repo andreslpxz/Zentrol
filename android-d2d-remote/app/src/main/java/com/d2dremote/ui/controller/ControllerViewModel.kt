@@ -64,7 +64,7 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
         if (ip.isEmpty()) return
 
         val code = _pairingCode.value.trim()
-        if (code.isEmpty()) return
+        if (code.length != 6 || !code.all { it.isDigit() }) return
 
         _connectionState.value = ConnectionState.Connecting
         decoderInitialized = false
@@ -162,8 +162,10 @@ class ControllerViewModel(application: Application) : AndroidViewModel(applicati
 
         decoderInitialized = true
         videoDecoder?.stop()
+        val decW = if (info.encodedWidth > 0) info.encodedWidth else info.width / 2
+        val decH = if (info.encodedHeight > 0) info.encodedHeight else info.height / 2
         videoDecoder = VideoDecoder(surface).apply {
-            start(info.width / 2, info.height / 2)
+            start(decW, decH)
         }
 
         videoClient?.onFrameReceived = { data, size ->

@@ -116,12 +116,15 @@ class ScreenCaptureService : Service() {
         val captureWidth = screenWidth / 2
         val captureHeight = screenHeight / 2
 
+        val encodedWidth = (captureWidth + 15) / 16 * 16
+        val encodedHeight = (captureHeight + 15) / 16 * 16
+
         val server = VideoStreamServer()
         videoStreamServer = server
         server.start(serviceScope, pairingCode)
 
         server.onClientConnected = {
-            server.sendScreenInfo(screenWidth, screenHeight, screenDensity)
+            server.sendScreenInfo(screenWidth, screenHeight, screenDensity, encodedWidth, encodedHeight)
         }
 
         encoder = VideoEncoder(captureWidth, captureHeight) { data, offset, size ->
