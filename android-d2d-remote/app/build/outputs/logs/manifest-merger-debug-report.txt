@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-51:12
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-60:12
+INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:2:1-60:12
 MERGED from [androidx.navigation:navigation-common:2.8.5] /home/zeus/.gradle/caches/8.9/transforms/79bcfb7787720806c937c494efc850ce/transformed/navigation-common-2.8.5/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-runtime:2.8.5] /home/zeus/.gradle/caches/8.9/transforms/b48adf853704d9b671cb33d91f4a497d/transformed/navigation-runtime-2.8.5/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.8.5] /home/zeus/.gradle/caches/8.9/transforms/6d42f35cdd02b2de0c84c8c1b6ae2ca2/transformed/navigation-common-ktx-2.8.5/AndroidManifest.xml:2:1-7:12
@@ -78,25 +78,41 @@ uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:5-76
 	android:name
 		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:22-73
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:22-73
 uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:5-77
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:5-77
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:22-74
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:22-74
 uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:5-94
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:5-94
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:22-91
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:22-91
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:5-78
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:12:5-78
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:22-75
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:12:22-75
 uses-permission#android.permission.POST_NOTIFICATIONS
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:5-77
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:5-77
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:22-74
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:22-74
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:14:5-68
+	android:name
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:14:22-65
+queries
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:16:5-20:15
+intent#action:name:android.intent.action.MAIN
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:17:9-19:18
+action#android.intent.action.MAIN
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:18:13-65
+	android:name
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:18:21-62
 application
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:5-50:19
-INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:5-50:19
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:22:5-59:19
+INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:22:5-59:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.8.7] /home/zeus/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:23:5-33:19
@@ -116,67 +132,63 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/zeus/
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:19:9-35
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:9-35
 	android:label
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:17:9-41
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:26:9-41
 	android:roundIcon
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:18:9-54
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:27:9-54
 	tools:targetApi
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:21:9-29
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:30:9-29
 	android:icon
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:16:9-43
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:25:9-43
 	android:allowBackup
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:15:9-35
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:24:9-35
 	android:theme
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:20:9-47
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:9-47
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:14:9-37
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:23:9-37
 activity#com.d2dremote.MainActivity
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:23:9-31:20
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:32:9-40:20
 	android:exported
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:25:13-36
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:34:13-36
 	android:theme
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:26:13-51
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:35:13-51
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:24:13-41
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:33:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:27:13-30:29
-action#android.intent.action.MAIN
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:17-69
-	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:25-66
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:36:13-39:29
 category#android.intent.category.LAUNCHER
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:17-77
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:38:17-77
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:27-74
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:38:27-74
 service#com.d2dremote.service.ScreenCaptureService
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:33:9-36:63
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:42:9-45:63
 	android:exported
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:35:13-37
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:44:13-37
 	android:foregroundServiceType
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:36:13-60
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:45:13-60
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:34:13-57
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:13-57
 service#com.d2dremote.service.TouchAccessibilityService
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:38:9-48:19
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:47:9-57:19
 	android:exported
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:40:13-36
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:49:13-36
 	android:permission
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:41:13-79
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:50:13-79
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:39:13-62
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:48:13-62
 intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:42:13-44:29
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:51:13-53:29
 action#android.accessibilityservice.AccessibilityService
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:17-92
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:52:17-92
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:25-89
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:52:25-89
 meta-data#android.accessibilityservice
-ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:45:13-47:72
+ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:54:13-56:72
 	android:resource
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:47:17-69
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:56:17-69
 	android:name
-		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:46:17-60
+		ADDED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:55:17-60
 uses-sdk
 INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml
