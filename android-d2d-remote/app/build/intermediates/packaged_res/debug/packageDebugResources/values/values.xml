@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="error">#FFDC2626</color>
+    <color name="on_surface">#FF1F2937</color>
+    <color name="primary">#FF2563EB</color>
+    <color name="primary_light">#FFDBEAFE</color>
+    <color name="secondary">#FF7C3AED</color>
+    <color name="success">#FF16A34A</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="accessibility_disabled">Accessibility Service: Disabled</string>
+    <string name="accessibility_enabled">Accessibility Service: Enabled</string>
+    <string name="accessibility_service_description">Allows the D2D Remote app to inject touch events received from a Controller device on the local network. Enable this service on the Target device before starting the remote control server.</string>
+    <string name="app_name">D2D Remote</string>
+    <string name="be_controller">Be Controller</string>
+    <string name="be_target">Be Target</string>
+    <string name="capture_notification_text">Screen is being shared</string>
+    <string name="capture_notification_title">D2D Remote</string>
+    <string name="connect">Connect</string>
+    <string name="connected">Connected</string>
+    <string name="connecting">Connecting…</string>
+    <string name="connection_error">Connection error</string>
+    <string name="controller_description">View and control another device\'s screen</string>
+    <string name="controller_title">Controller Mode</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="enable_accessibility">Enable Accessibility</string>
+    <string name="enter_target_ip">Enter Target IP</string>
+    <string name="home_subtitle">Device-to-Device Remote Control</string>
+    <string name="home_title">D2D Remote</string>
+    <string name="notification_channel_description">Shows when screen is being shared</string>
+    <string name="notification_channel_name">Screen Capture</string>
+    <string name="server_running">Server is running</string>
+    <string name="server_stopped">Server is stopped</string>
+    <string name="start_server">Start Server</string>
+    <string name="stop_server">Stop Server</string>
+    <string name="target_description">Share your screen and allow remote control</string>
+    <string name="target_title">Target Mode</string>
+    <string name="your_ip">Your IP Address</string>
+    <style name="Theme.D2DRemote" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>
