@@ -9,179 +9,179 @@
 9        android:targetSdkVersion="35" />
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:5:5-67
-11-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:5:22-64
+11-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:5:5-67
+11-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:5:22-64
 12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-12-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:6:5-79
-12-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:6:22-76
+12-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:6:5-79
+12-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:6:22-76
 13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-13-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:5-76
-13-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:22-73
+13-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:5-76
+13-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:7:22-73
 14    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-14-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:5-77
-14-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:22-74
+14-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:5-77
+14-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:8:22-74
 15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
-15-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:5-94
-15-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:22-91
+15-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:5-94
+15-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:9:22-91
 16    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-16-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:5-78
-16-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:22-75
+16-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:5-78
+16-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:10:22-75
 17    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-17-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:5-77
-17-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:22-74
+17-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:5-77
+17-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:11:22-74
 18
 19    <permission
-19-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+19-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
 20        android:name="com.d2dremote.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-20-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+20-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
 21        android:protectionLevel="signature" />
-21-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+21-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
 22
 23    <uses-permission android:name="com.d2dremote.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-23-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
-23-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+23-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
 24
 25    <application
-25-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:5-50:19
+25-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:13:5-50:19
 26        android:name="com.d2dremote.D2DRemoteApp"
-26-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:14:9-37
+26-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:14:9-37
 27        android:allowBackup="true"
-27-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:15:9-35
+27-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:15:9-35
 28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-28-->[androidx.core:core:1.15.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+28-->[androidx.core:core:1.15.0] /home/zeus/.gradle/caches/8.9/transforms/1821c6b0adb08634db500f0b91efaeb3/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
 29        android:debuggable="true"
 30        android:extractNativeLibs="false"
 31        android:icon="@mipmap/ic_launcher"
-31-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:16:9-43
+31-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:16:9-43
 32        android:label="@string/app_name"
-32-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:17:9-41
+32-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:17:9-41
 33        android:roundIcon="@mipmap/ic_launcher_round"
-33-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:18:9-54
+33-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:18:9-54
 34        android:supportsRtl="true"
-34-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:19:9-35
+34-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:19:9-35
 35        android:theme="@style/Theme.D2DRemote" >
-35-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:20:9-47
+35-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:20:9-47
 36        <activity
-36-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:23:9-31:20
+36-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:23:9-31:20
 37            android:name="com.d2dremote.MainActivity"
-37-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:24:13-41
+37-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:24:13-41
 38            android:exported="true"
-38-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:25:13-36
+38-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:25:13-36
 39            android:theme="@style/Theme.D2DRemote" >
-39-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:26:13-51
+39-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:26:13-51
 40            <intent-filter>
-40-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:27:13-30:29
+40-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:27:13-30:29
 41                <action android:name="android.intent.action.MAIN" />
-41-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:17-69
-41-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:25-66
+41-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:17-69
+41-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:28:25-66
 42
 43                <category android:name="android.intent.category.LAUNCHER" />
-43-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:17-77
-43-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:27-74
+43-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:17-77
+43-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:29:27-74
 44            </intent-filter>
 45        </activity>
 46
 47        <service
-47-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:33:9-36:63
+47-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:33:9-36:63
 48            android:name="com.d2dremote.service.ScreenCaptureService"
-48-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:34:13-57
+48-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:34:13-57
 49            android:exported="false"
-49-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:35:13-37
+49-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:35:13-37
 50            android:foregroundServiceType="mediaProjection" />
-50-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:36:13-60
+50-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:36:13-60
 51        <service
-51-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:38:9-48:19
+51-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:38:9-48:19
 52            android:name="com.d2dremote.service.TouchAccessibilityService"
-52-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:39:13-62
+52-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:39:13-62
 53            android:exported="true"
-53-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:40:13-36
+53-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:40:13-36
 54            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-54-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:41:13-79
+54-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:41:13-79
 55            <intent-filter>
-55-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:42:13-44:29
+55-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:42:13-44:29
 56                <action android:name="android.accessibilityservice.AccessibilityService" />
-56-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:17-92
-56-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:25-89
+56-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:17-92
+56-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:43:25-89
 57            </intent-filter>
 58
 59            <meta-data
-59-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:45:13-47:72
+59-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:45:13-47:72
 60                android:name="android.accessibilityservice"
-60-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:46:17-60
+60-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:46:17-60
 61                android:resource="@xml/accessibility_service_config" />
-61-->/data/data/com.termux/files/home/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:47:17-69
+61-->/teamspace/studios/this_studio/Zentrol/android-d2d-remote/app/src/main/AndroidManifest.xml:47:17-69
 62        </service>
 63
 64        <provider
-64-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+64-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
 65            android:name="androidx.startup.InitializationProvider"
-65-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
+65-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
 66            android:authorities="com.d2dremote.androidx-startup"
-66-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
+66-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
 67            android:exported="false" >
-67-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
+67-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
 68            <meta-data
-68-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+68-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
 69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-69-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+69-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
 70                android:value="androidx.startup" />
-70-->[androidx.emoji2:emoji2:1.3.0] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+70-->[androidx.emoji2:emoji2:1.3.0] /home/zeus/.gradle/caches/8.9/transforms/1f764eca42b3331021b95ed56eb672b0/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
 71            <meta-data
-71-->[androidx.lifecycle:lifecycle-process:2.8.7] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+71-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zeus/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
 72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-72-->[androidx.lifecycle:lifecycle-process:2.8.7] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+72-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zeus/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
 73                android:value="androidx.startup" />
-73-->[androidx.lifecycle:lifecycle-process:2.8.7] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+73-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zeus/.gradle/caches/8.9/transforms/8fa5499a31f8088501fde46120837ddf/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
 74            <meta-data
-74-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
 75                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-75-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
 76                android:value="androidx.startup" />
-76-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
 77        </provider>
 78
 79        <activity
-79-->[androidx.compose.ui:ui-tooling-android:1.7.6] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+79-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/zeus/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
 80            android:name="androidx.compose.ui.tooling.PreviewActivity"
-80-->[androidx.compose.ui:ui-tooling-android:1.7.6] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+80-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/zeus/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
 81            android:exported="true" />
-81-->[androidx.compose.ui:ui-tooling-android:1.7.6] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+81-->[androidx.compose.ui:ui-tooling-android:1.7.6] /home/zeus/.gradle/caches/8.9/transforms/e63f76ca2363602080e002cfea3c7d1e/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
 82
 83        <receiver
-83-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
 84            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-84-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
 85            android:directBootAware="false"
-85-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
 86            android:enabled="true"
-86-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
 87            android:exported="true"
-87-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
 88            android:permission="android.permission.DUMP" >
-88-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
 89            <intent-filter>
-89-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
 90                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
 91            </intent-filter>
 92            <intent-filter>
-92-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
 93                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-93-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
-93-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
 94            </intent-filter>
 95            <intent-filter>
-95-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
 96                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-96-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
-96-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
 97            </intent-filter>
 98            <intent-filter>
-98-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
 99                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-99-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
-99-->[androidx.profileinstaller:profileinstaller:1.3.1] /data/data/com.termux/files/home/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] /home/zeus/.gradle/caches/8.9/transforms/a097976b4463e75fc06a99ff5353b4bd/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
 100            </intent-filter>
 101        </receiver>
 102    </application>

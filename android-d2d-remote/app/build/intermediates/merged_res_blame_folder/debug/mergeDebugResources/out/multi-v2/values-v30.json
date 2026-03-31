@@ -4,7 +4,7 @@
             "outputFile": "com.d2dremote.app-mergeDebugResources-51:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "/data/data/com.termux/files/home/.gradle/caches/8.9/transforms/24de6ba897409cfdf149421efdab19cc/transformed/material3-release/res/values-v30/values-v30.xml",
+                    "source": "/home/zeus/.gradle/caches/8.9/transforms/24de6ba897409cfdf149421efdab19cc/transformed/material3-release/res/values-v30/values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
